@@ -47,7 +47,6 @@ export default function WardSelection(props: WardSelectionProps) {
     const handle_header_click = (header: "Property" | "Price") => {
         if (sort_by() === header) {
             set_sort_direction(sort_direction() === "asc" ? "dsc" : "asc");
-            console.log(sort_direction());
         } else {
             set_sort_direction("asc");
         }

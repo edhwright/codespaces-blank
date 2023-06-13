@@ -31,10 +31,14 @@ export default function Choropleth(props: ChoroplethProps) {
     const [scale_to, set_scale_to] = createSignal("borough");
 
     const handle_pointer_enter = (ward_geocode: string) => {
-        if (props.aggregate === "average") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.average) });
-        else if (props.aggregate === "median") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.median) });
-        else if (props.aggregate === "count") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: ward_year_summary_by_ward_geocode.get(ward_geocode)!.count.toString() });
-        else if (props.aggregate === "sum") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.sum) });
+        if (ward_year_summary_by_ward_geocode.has(ward_geocode)) {
+            if (props.aggregate === "average") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.average) });
+            else if (props.aggregate === "median") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.median) });
+            else if (props.aggregate === "count") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: ward_year_summary_by_ward_geocode.get(ward_geocode)!.count.toString() });
+            else if (props.aggregate === "sum") props.set_selected_ward({ ward: ward_year_summary_by_ward_geocode.get(ward_geocode)!.ward_name, value: price_format(ward_year_summary_by_ward_geocode.get(ward_geocode)!.sum) });
+        } else {
+            props.set_selected_ward({ ward: "No data available", value: "" });
+        }
     };
 
     const handle_pointer_leave = () => {
@@ -64,7 +68,11 @@ export default function Choropleth(props: ChoroplethProps) {
     const quantize_scale = () => scaleQuantize<string>().domain(quantize_scale_domain()).range(schemeOranges[9]).nice();
 
     const ward_fill = (ward_geocode: string) => {
-        return quantize_scale()(ward_year_summary_by_ward_geocode.get(ward_geocode)![props.aggregate]);
+        if (ward_year_summary_by_ward_geocode.get(ward_geocode) === undefined) {
+            return "#fff"
+        } else {
+            return quantize_scale()(ward_year_summary_by_ward_geocode.get(ward_geocode)![props.aggregate]);
+        }
     };
 
     return (
@@ -103,7 +111,7 @@ export default function Choropleth(props: ChoroplethProps) {
                                     d={path_generator(ward as any) as string}
                                     fill={ward_fill(ward.properties.WD22CD)}
                                     stroke="black"
-                                    class={props.selected_ward.ward === ward_year_summary_by_ward_geocode.get(ward.properties.WD22CD)!.ward_name ? styles.map__selected_path : ""}
+                                    class={`${ward_year_summary_by_ward_geocode.has(ward.properties.WD22CD) && ward_year_summary_by_ward_geocode.get(ward.properties.WD22CD)!.ward_name === props.selected_ward.ward ? styles.map__selected_path : ""} ${props.selected_ward.ward === "No data available" ? styles.map__selected_path_blank : ""}`}
                                 />
                             ))}
                         </g>

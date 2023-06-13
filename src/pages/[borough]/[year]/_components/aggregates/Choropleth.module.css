@@ -36,6 +36,10 @@
     fill: rgb(var(--accent-light));
 }
 
+.map__selected_path_blank:hover {
+    fill: rgb(var(--accent-light));
+}
+
 .legend {
     font-size: 11px;
     margin-top: 8px;
