@@ -1,0 +1,67 @@
+.title {
+    margin: 0;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    background-color: rgb(var(--content-background));
+    border-radius: 8px 8px 0 0;
+    border: 1px solid rgb(var(--border));
+    border-bottom: none
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 16px;
+    line-height: 18px;
+    padding: 16px;
+    border: 1px solid rgb(var(--border));
+    border-bottom: none;
+    background-color: rgb(var(--content-background));
+}
+
+.item:hover {
+    background-color: #f6f6f6;
+}
+
+.item:last-child {
+    border-bottom: 1px solid rgb(var(--border));
+    border-radius: 0 0 8px 8px;
+}
+
+.number {
+    font-family: "IBM Plex Mono Regular";
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.buttons__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.buttons__button:disabled>svg {
+    stroke: rgb(var(--border));
+}
+
+.buttons__state {
+    margin: 0 8px;
+}

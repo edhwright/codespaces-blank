@@ -1,0 +1,229 @@
+.container {
+    max-width: 600px;
+    min-height: 1200px;
+    margin: 0 auto;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+
+.filters>input {
+    height: 40px;
+    border-radius: 8px;
+    width: 100%;
+    margin-bottom: 1rem;
+    margin-right: 16px;
+}
+
+.filters>select {
+    height: 40px;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.table {
+    width: 100%;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+.row {
+    background-color: rgb(var(--content-background));
+}
+
+.row:hover,
+.table__header__property:hover,
+.table__header__price:hover {
+    background-color: #f6f6f6;
+    cursor: pointer;
+}
+
+.table__header__property {
+    text-align: left;
+    border-radius: 8px 0 0 0;
+    background-color: rgb(var(--content-background));
+    border: 1px solid rgb(var(--border));
+    border-right: none;
+    padding: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    width: 100%;
+}
+
+.table__header__property__text,
+.table__header__property__arrow,
+.table__header__price__text,
+.table__header__price__arrow {
+    vertical-align: middle;
+    display: inline-block;
+    height: 16px;
+}
+
+.table__header__property__text {
+    margin-right: 2px;
+}
+
+.table__header__price__text {
+    margin-left: 2px;
+}
+
+.row__address {
+    text-align: left;
+    border-left: 1px solid rgb(var(--border));
+    border-bottom: 1px solid rgb(var(--border));
+    padding: 16px;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.row__address>p {
+    margin: 0;
+}
+
+.row__expanded__cell {
+    border-left: 1px solid rgb(var(--border));
+    border-right: 1px solid rgb(var(--border));
+    border-bottom: 1px solid rgb(var(--border));
+    padding: 16px;
+    font-size: 16px;
+    line-height: 16px;
+}
+
+.table__header__price {
+    text-align: right;
+    border-radius: 0 8px 0 0;
+    background-color: rgb(var(--content-background));
+    border: 1px solid rgb(var(--border));
+    padding: 16px;
+    font-size: 16px;
+    line-height: 16px;
+    width: 140px;
+}
+
+.row__price {
+    text-align: right;
+    border-right: 1px solid rgb(var(--border));
+    border-bottom: 1px solid rgb(var(--border));
+    padding: 16px;
+    font-size: 14px;
+    line-height: 16px;
+    font-family: "IBM Plex Mono Regular";
+}
+
+.remove_bottom_border {
+    border-bottom: none;
+}
+
+.row:last-child>td:first-child {
+    border-radius: 0 0 0 8px;
+}
+
+.row:last-child>td:last-child {
+    border-radius: 0 0 8px 0;
+}
+
+.transaction>tr:last-child:is(.row__expanded)>td {
+    border-radius: 0 0 8px 8px;
+}
+
+.transaction {
+    background-color: rgb(var(--content-background));
+}
+
+.buttons {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+}
+
+.buttons__button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.buttons__state {
+    margin: 0 8px;
+}
+
+.buttons__button:disabled>svg {
+    stroke: rgb(var(--border));
+}
+
+.number {
+    font-family: "IBM Plex Mono Regular";
+}
+
+
+
+.row__expanded__cell__address__header,
+.row__expanded__cell__details__header,
+.row__expanded__cell__date__header {
+    display: block;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgb(var(--border));
+    margin-bottom: 8px;
+}
+
+.row__expanded__cell__address__body,
+.row__expanded__cell__details__body,
+.row__expanded__cell__date__body {
+    line-height: 1.5;
+    margin: 0;
+}
+
+.row__expanded__cell__details__body {
+    padding-left: 16px;
+}
+
+.row__expanded__cell__address,
+.row__expanded__cell__details,
+.row__expanded__cell__date {
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 1024px) {
+    .container {
+        max-width: 900px;
+    }
+
+    .table__header__property {
+        width: 80%;
+
+    }
+
+    .table__header__price {
+        width: 20%;
+    }
+
+    .filters {
+        flex-direction: row;
+    }
+
+    .filters>input {
+        width: 50%;
+        margin-bottom: 2rem;
+    }
+
+    .filters>select {
+        width: 50%;
+    }
+
+    .row__address {
+        font-size: 16px;
+        line-height: 18px;
+    }
+
+    .row__price {
+        font-size: 16px;
+        line-height: 18px;
+    }
+}

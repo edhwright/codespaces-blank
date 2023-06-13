@@ -1,0 +1,49 @@
+.scale {
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2rem;
+}
+
+.scale__heading {
+    line-height: 1;
+}
+
+.scale__options {
+    display: flex;
+    margin-top: 4px;
+}
+
+.scale__option {
+    display: block;
+}
+
+.scale__option__borough {
+    margin-right: 1rem;
+}
+
+.map {
+    border-radius: 8px;
+    border: 1px solid rgb(var(--border));
+    background-color: rgb(var(--content-background));
+}
+
+.map>svg {
+    display: block;
+}
+
+.map__selected_path {
+    fill: rgb(var(--accent-light));
+}
+
+.legend {
+    font-size: 11px;
+    margin-top: 8px;
+}
+
+@media (min-width: 1024px) {
+    .map {
+        width: 400px;
+        height: 458px;
+    }
+}

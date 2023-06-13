@@ -1,0 +1,200 @@
+[
+	{
+		"borough_name": "Barking and Dagenham",
+		"borough_slug": "barking-and-dagenham",
+		"borough_geocode": "E09000002",
+		"borough_colour": "#0b0c0c"
+	},
+	{
+		"borough_name": "Barnet",
+		"borough_slug": "barnet",
+		"borough_geocode": "E09000003",
+		"borough_colour": "#007078"
+	},
+	{
+		"borough_name": "Bexley",
+		"borough_slug": "bexley",
+		"borough_geocode": "E09000004",
+		"borough_colour": "#183170"
+	},
+	{
+		"borough_name": "Brent",
+		"borough_slug": "brent",
+		"borough_geocode": "E09000005",
+		"borough_colour": "#248660"
+	},
+	{
+		"borough_name": "Bromley",
+		"borough_slug": "bromley",
+		"borough_geocode": "E09000006",
+		"borough_colour": "#00753b"
+	},
+	{
+		"borough_name": "Camden",
+		"borough_slug": "camden",
+		"borough_geocode": "E09000007",
+		"borough_colour": "#cce0df"
+	},
+	{
+		"borough_name": "City of London",
+		"borough_slug": "city-of-london",
+		"borough_geocode": "E09000001",
+		"borough_colour": "#d61726"
+	},
+	{
+		"borough_name": "Croydon",
+		"borough_slug": "croydon",
+		"borough_geocode": "E09000008",
+		"borough_colour": "#880088"
+	},
+	{
+		"borough_name": "Ealing",
+		"borough_slug": "ealing",
+		"borough_geocode": "E09000009",
+		"borough_colour": "#008851"
+	},
+	{
+		"borough_name": "Enfield",
+		"borough_slug": "enfield",
+		"borough_geocode": "E09000010",
+		"borough_colour": "#c41508"
+	},
+	{
+		"borough_name": "Greenwich",
+		"borough_slug": "greenwich",
+		"borough_geocode": "E09000011",
+		"borough_colour": "#c1002b"
+	},
+	{
+		"borough_name": "Hackney",
+		"borough_slug": "hackney",
+		"borough_geocode": "E09000012",
+		"borough_colour": "#00513f"
+	},
+	{
+		"borough_name": "Hammersmith and Fulham",
+		"borough_slug": "hammersmith-and-fulham",
+		"borough_geocode": "E09000013",
+		"borough_colour": "#d92644"
+	},
+	{
+		"borough_name": "Haringey",
+		"borough_slug": "haringey",
+		"borough_geocode": "E09000014",
+		"borough_colour": "#c83b2b"
+	},
+	{
+		"borough_name": "Harrow",
+		"borough_slug": "harrow",
+		"borough_geocode": "E09000015",
+		"borough_colour": "#604c8d"
+	},
+	{
+		"borough_name": "Havering",
+		"borough_slug": "havering",
+		"borough_geocode": "E09000016",
+		"borough_colour": "#0071b9"
+	},
+	{
+		"borough_name": "Hillingdon",
+		"borough_slug": "hillingdon",
+		"borough_geocode": "E09000017",
+		"borough_colour": "#00685e"
+	},
+	{
+		"borough_name": "Hounslow",
+		"borough_slug": "hounslow",
+		"borough_geocode": "E09000018",
+		"borough_colour": "#642f6c"
+	},
+	{
+		"borough_name": "Islington",
+		"borough_slug": "islington",
+		"borough_geocode": "E09000019",
+		"borough_colour": "#288647"
+	},
+	{
+		"borough_name": "Kensington and Chelsea",
+		"borough_slug": "kensington-and-chelsea",
+		"borough_geocode": "E09000020",
+		"borough_colour": "#273971"
+	},
+	{
+		"borough_name": "Kingston upon Thames",
+		"borough_slug": "kingston-upon-thames",
+		"borough_geocode": "E09000021",
+		"borough_colour": "#79c3d5"
+	},
+	{
+		"borough_name": "Lambeth",
+		"borough_slug": "lambeth",
+		"borough_geocode": "E09000022",
+		"borough_colour": "#006699"
+	},
+	{
+		"borough_name": "Lewisham",
+		"borough_slug": "lewisham",
+		"borough_geocode": "E09000023",
+		"borough_colour": "#2b4972"
+	},
+	{
+		"borough_name": "Merton",
+		"borough_slug": "merton",
+		"borough_geocode": "E09000024",
+		"borough_colour": "#422d76"
+	},
+	{
+		"borough_name": "Newham",
+		"borough_slug": "newham",
+		"borough_geocode": "E09000025",
+		"borough_colour": "#c0026b"
+	},
+	{
+		"borough_name": "Redbridge",
+		"borough_slug": "redbridge",
+		"borough_geocode": "E09000026",
+		"borough_colour": "#861d50"
+	},
+	{
+		"borough_name": "Richmond upon Thames",
+		"borough_slug": "richmond-upon-thames",
+		"borough_geocode": "E09000027",
+		"borough_colour": "#557816"
+	},
+	{
+		"borough_name": "Southwark",
+		"borough_slug": "southwark",
+		"borough_geocode": "E09000028",
+		"borough_colour": "#256f8a"
+	},
+	{
+		"borough_name": "Sutton",
+		"borough_slug": "sutton",
+		"borough_geocode": "E09000029",
+		"borough_colour": "#00856a"
+	},
+	{
+		"borough_name": "Tower Hamlets",
+		"borough_slug": "tower-hamlets",
+		"borough_geocode": "E09000030",
+		"borough_colour": "#00599f"
+	},
+	{
+		"borough_name": "Waltham Forest",
+		"borough_slug": "waltham-forest",
+		"borough_geocode": "E09000031",
+		"borough_colour": "#246051"
+	},
+	{
+		"borough_name": "Wandsworth",
+		"borough_slug": "wandsworth",
+		"borough_geocode": "E09000032",
+		"borough_colour": "#326ab0"
+	},
+	{
+		"borough_name": "Westminster",
+		"borough_slug": "westminster",
+		"borough_geocode": "E09000033",
+		"borough_colour": "#0b2265"
+	}
+]

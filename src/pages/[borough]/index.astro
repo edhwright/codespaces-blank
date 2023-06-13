@@ -1,0 +1,125 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import london_boroughs from "../../geojson/london-boroughs.json";
+import { fetch_borough_year_summaries } from "../../utils/fetch_borough_year_summaries";
+import Card from "../../components/Card.astro";
+import Chart from "./_components/Chart";
+import type { BoroughYearSummary } from "../../utils/interfaces";
+
+export async function getStaticPaths() {
+    const borough_year_summaries = await fetch_borough_year_summaries();
+
+    const page_data = london_boroughs.map((borough) => {
+        return {
+            params: {
+                borough: borough.borough_slug,
+            },
+            props: {
+                ...borough,
+                summaries: borough_year_summaries
+                    .filter(
+                        (summary) =>
+                            summary.borough_geocode === borough.borough_geocode
+                    )
+                    .sort((a, b) => a.year.localeCompare(b.year)),
+            },
+        };
+    });
+
+    return page_data;
+}
+
+interface Props {
+    borough_name: string;
+    borough_slug: string;
+    borough_geocode: string;
+    borough_colour: string;
+    summaries: BoroughYearSummary[];
+}
+
+const { borough_name, borough_slug, summaries, borough_colour } =
+    Astro.props as Props;
+---
+
+<Layout title={borough_name}>
+    <main>
+        <nav class="breadcrumbs">
+            <ul>
+                <li class="breadcrumbs__home"><a href="/">Home</a></li>
+                <li class="breadcrumbs__borough">{borough_name}</li>
+            </ul>
+        </nav>
+
+        <h1>{borough_name} property transactions</h1>
+
+        <h2>Overview</h2>
+        <Chart client:load summaries={summaries} line_colour={borough_colour} />
+
+        <h2>Transactions by year</h2>
+        <ul>
+            {
+                [...summaries]
+                    .reverse()
+                    .map((summary) => (
+                        <Card
+                            title={summary.year}
+                            href={`/${borough_slug}/${summary.year}`}
+                        />
+                    ))
+            }
+        </ul>
+    </main>
+</Layout>
+
+<style>
+    main {
+        margin: 0 1rem;
+        max-width: 900px;
+    }
+
+    main > * {
+        max-width: 600px;
+    }
+
+    .breadcrumbs {
+        font-size: 14px;
+        margin: 10px 0;
+        display: flex;
+    }
+
+    .breadcrumbs ul {
+        display: flex;
+    }
+
+    .breadcrumbs ul,
+    .breadcrumbs li,
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .breadcrumbs a {
+        color: rgb(var(--text));
+        text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumbs > ul > li {
+        display: inline-block;
+    }
+
+    .breadcrumbs__home::after {
+        content: "\2192";
+        margin: 0 8px;
+    }
+
+    @media (min-width: 932px) {
+        main {
+            margin: 0 auto;
+        }
+    }
+</style>

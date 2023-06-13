@@ -1,0 +1,250 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import geo_wards from "../../../geojson/geo-london-wards.json";
+import { fetch_borough_year_summaries } from "../../../utils/fetch_borough_year_summaries";
+import { fetch_borough_year_transactions } from "../../../utils/fetch_borough_year_transactions";
+import { fetch_ward_year_summaries } from "../../../utils/fetch_ward_year_summaries";
+import { borough_by_geocode } from "../../../utils/borough_by_geocode";
+import { extents_from_summaries } from "../../../utils/extents_from_summaries";
+import Aggregates from "./_components/aggregates/index";
+import Transactions from "./_components/transactions/index";
+import type {
+    WardYearSummary,
+    GeoBoroughWard,
+    SummaryExtents,
+    BoroughYearSummary,
+    Borough,
+} from "../../../utils/interfaces";
+
+export async function getStaticPaths() {
+    // aggregated data
+    const borough_year_summaries = await fetch_borough_year_summaries();
+
+    // extents used for choropleth scale (scaled to all wards)
+    const all_ward_summaries = await fetch_ward_year_summaries();
+    const all_ward_summaries_extents =
+        extents_from_summaries(all_ward_summaries);
+
+    const page_data = borough_year_summaries.map((borough_year_summary) => {
+        const borough = borough_by_geocode.get(
+            borough_year_summary.borough_geocode
+        )!;
+
+        // geojson, used to generate map
+        const geo_borough_wards = geo_wards.features.filter(
+            (ward) => ward.properties.LAD22CD === borough.borough_geocode
+        );
+
+        // extents used for choropleth scale (scaled to borough)
+        const borough_ward_summaries = all_ward_summaries.filter(
+            (ward_summary) =>
+                ward_summary.borough_geocode === borough.borough_geocode
+        );
+        const borough_ward_summaries_extents = extents_from_summaries(
+            borough_ward_summaries
+        );
+
+        // summaries of wards in borough by year
+        const borough_ward_year_summaries = borough_ward_summaries.filter(
+            (borough_ward_summary) =>
+                borough_ward_summary.year === borough_year_summary.year
+        );
+
+        return {
+            params: {
+                borough: borough.borough_slug,
+                year: borough_year_summary.year,
+            },
+            props: {
+                borough: borough,
+                borough_year_summary: borough_year_summary,
+                geo_borough_wards: geo_borough_wards,
+                summary_extents: {
+                    all_wards: all_ward_summaries_extents,
+                    borough_wards: borough_ward_summaries_extents,
+                },
+                borough_ward_year_summaries: borough_ward_year_summaries,
+                all_years: [
+                    ...new Set(
+                        borough_year_summaries.map((summary) => summary.year)
+                    ),
+                ].sort(),
+            },
+        };
+    });
+
+    return page_data;
+}
+
+interface Props {
+    borough: Borough;
+    borough_year_summary: BoroughYearSummary;
+    geo_borough_wards: GeoBoroughWard[];
+    summary_extents: {
+        all_wards: SummaryExtents;
+        borough_wards: SummaryExtents;
+    };
+    borough_ward_year_summaries: WardYearSummary[];
+    all_years: string[];
+}
+
+const {
+    borough,
+    borough_year_summary,
+    geo_borough_wards,
+    summary_extents,
+    borough_ward_year_summaries,
+    all_years,
+} = Astro.props as Props;
+
+const borough_transactions = await fetch_borough_year_transactions(
+    borough.borough_geocode,
+    borough_year_summary.year
+);
+---
+
+<Layout
+    title={`${borough.borough_name} ${borough_year_summary.year} property transactions`}
+>
+    <main>
+        <header>
+            <nav class="breadcrumbs">
+                <ul>
+                    <li class="breadcrumbs__home"><a href="/">Home</a></li>
+                    <li class="breadcrumbs__borough">
+                        <a href={`/${borough.borough_slug}`}
+                            >{borough.borough_name}</a
+                        >
+                    </li>
+                    <li class="breadcrumbs__dropdown">
+                        <a
+                            href={`/${borough.borough_slug}/${borough_year_summary.year}`}
+                            >{borough_year_summary.year}</a
+                        >
+                        <ul class="breadcrumbs__dropdown__menu">
+                            {
+                                [...all_years].reverse().map((year) => (
+                                    <li>
+                                        <a
+                                            href={`/${borough.borough_slug}/${year}`}
+                                        >
+                                            {year}
+                                        </a>
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+
+            <h1>
+                {borough.borough_name} property transactions in {
+                    borough_year_summary.year
+                }
+            </h1>
+        </header>
+
+        <section class="aggregated">
+            <h2>Aggregated data by electoral ward</h2>
+            <Aggregates
+                client:load
+                borough={borough}
+                geo_borough_wards={geo_borough_wards}
+                borough_ward_year_summaries={borough_ward_year_summaries}
+                summary_extents={summary_extents}
+            />
+        </section>
+
+        <section class="transactions">
+            <h2>Transactions</h2>
+            <Transactions
+                client:load
+                borough={borough}
+                borough_transactions={borough_transactions}
+                borough_ward_year_summaries={borough_ward_year_summaries}
+            />
+        </section>
+    </main>
+</Layout>
+
+<style>
+    main {
+        margin: 0 1rem;
+        max-width: 900px;
+    }
+
+    .breadcrumbs {
+        font-size: 14px;
+        margin: 10px 0;
+        display: flex;
+    }
+
+    .breadcrumbs ul:not(.breadcrumbs__dropdown__menu) {
+        display: flex;
+    }
+
+    .breadcrumbs ul:not(.breadcrumbs__dropdown__menu),
+    .breadcrumbs li {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .breadcrumbs a {
+        color: rgb(var(--text));
+        text-decoration: none;
+    }
+
+    .breadcrumbs a:hover {
+        text-decoration: underline;
+    }
+
+    .breadcrumbs > ul > li {
+        display: inline-block;
+    }
+
+    .breadcrumbs__dropdown {
+        position: relative;
+    }
+
+    .breadcrumbs__dropdown > a {
+        display: block;
+        position: relative;
+    }
+
+    .breadcrumbs__dropdown__menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background-color: rgb(var(--content-background));
+        box-shadow: var(--shadow-small);
+        padding: 12px;
+        border-radius: 8px;
+    }
+
+    .breadcrumbs__dropdown:hover .breadcrumbs__dropdown__menu {
+        display: block;
+    }
+
+    .breadcrumbs__dropdown__menu li {
+        margin-bottom: 8px;
+    }
+
+    .breadcrumbs__dropdown__menu li:last-child {
+        margin-bottom: 0;
+    }
+
+    .breadcrumbs__borough::after,
+    .breadcrumbs__home::after {
+        content: "\2192";
+        margin: 0 8px;
+    }
+
+    @media (min-width: 932px) {
+        main {
+            margin: 0 auto;
+        }
+    }
+</style>

@@ -1,15 +1,54 @@
 ---
+import Layout from "../layouts/Layout.astro";
+import Card from "../components/Card.astro";
+import london_boroughs from "../geojson/london-boroughs.json";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Residential property sales in London">
+	<main>
+		<h1>Residential property sales in London</h1>
+
+		<div class="description">
+			<!-- prettier-ignore -->
+			<p>A breakdown of residential property transcations in London over the past 10 years by borough. Data comes from the <a class="link" href="https://www.gov.uk/government/statistical-data-sets/price-paid-data-downloads" target="_blank">price paid dataset</a>. May contain errors. Source code can be found <a class="link" href="" target="_blank">here</a>.</p>
+		</div>
+
+		<h2>Boroughs</h2>
+		<ul>
+			{
+				london_boroughs.map((borough) => (
+					<Card
+						href={`/${borough.borough_slug}`}
+						title={borough.borough_name}
+					/>
+				))
+			}
+		</ul>
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: 0 1rem;
+		max-width: 900px;
+	}
+
+	main > * {
+		max-width: 600px;
+	}
+
+	.description {
+		margin-bottom: 2rem;
+	}
+
+	ul {
+		list-style: none;
+		padding: 0;
+	}
+
+	@media (min-width: 932px) {
+		main {
+			margin: 0 auto;
+		}
+	}
+</style>
