@@ -33,11 +33,11 @@
 }
 
 .map__selected_path {
-    fill: rgb(var(--accent-light));
+    fill: rgb(var(--accent-dark));
 }
 
 .map__selected_path_blank:hover {
-    fill: rgb(var(--accent-light));
+    fill: rgb(var(--accent-dark));
 }
 
 .legend {

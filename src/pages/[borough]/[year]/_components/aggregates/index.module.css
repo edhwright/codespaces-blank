@@ -28,7 +28,7 @@
 }
 
 .buttons__selected {
-    background-color: rgb(var(--accent-light));
+    background-color: rgb(var(--accent-dark));
     color: rgb(var(--content-background));
 }
 
