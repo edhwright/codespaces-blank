@@ -13,12 +13,13 @@
 .buttons {
     display: flex;
     align-items: center;
-    height: 40px;
-    margin-bottom: 2rem;
+    margin-bottom: calc(2rem - 8px);
+    flex-wrap: wrap;
 }
 
 .buttons__button {
     margin-right: 8px;
+    margin-bottom: 8px;
     font-size: 16px;
     line-height: 20px;
     height: 40px;
@@ -34,6 +35,18 @@
 
 .buttons__selected:focus {
     outline: none;
+}
+
+@media (min-width: 500px) {
+    .buttons {
+        flex-wrap: nowrap;
+        margin-bottom: 2rem;
+        height: 40px;
+    }
+
+    .buttons__button {
+        margin-bottom: 0;
+    }
 }
 
 @media (min-width: 1024px) {
