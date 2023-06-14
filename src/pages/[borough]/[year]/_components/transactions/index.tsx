@@ -6,13 +6,13 @@ import styles from "./index.module.css";
 import Leaflet from "./Leaflet";
 import type { WardYearSummary, Borough, Transaction } from "../../../../../utils/interfaces";
 
-interface WardSelectionProps {
+interface TransactionsProps {
     borough: Borough;
     borough_transactions: Transaction[];
     borough_ward_year_summaries: WardYearSummary[];
 }
 
-export default function WardSelection(props: WardSelectionProps) {
+export default function Transactions(props: TransactionsProps) {
     const [selected_ward, set_selected_ward] = createSignal("All");
     const transactions_by_ward_name = group(props.borough_transactions, (t: Transaction) => t.ward_name);
 
