@@ -1,4 +1,5 @@
 import { createSignal, For, Show, Switch, Match } from "solid-js";
+import dayjs from "dayjs";
 import { price_format } from "../../../../../utils/price_format";
 import { group, ascending, descending } from "d3-array";
 import { get_paginated_array } from "../../../../../utils/get_paginated_array";
@@ -177,7 +178,7 @@ function Row(props: RowProps) {
                         </div>
                         <div class={styles.row__expanded__cell__date}>
                             <p class={styles.row__expanded__cell__date__header}>Date of transfer</p>
-                            <p class={styles.row__expanded__cell__date__body}>{new Date(props.transaction.date_of_transfer).toLocaleDateString('en-us', { year: "numeric", month: "long", day: "numeric" })}</p>
+                            <p class={styles.row__expanded__cell__date__body}>{dayjs(props.transaction.date_of_transfer).format("dddd, D MMMM, YYYY")}</p>
                         </div>
                         <div class={styles.row__expanded__cell__map}>
                             <Leaflet lat={props.transaction.postcode_lat} long={props.transaction.postcode_long} />
