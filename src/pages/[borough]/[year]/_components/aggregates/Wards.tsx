@@ -28,7 +28,7 @@ export default function Wards(props: WardsProps) {
     return (
         <section>
             <h3 class={styles.title}>{props.title}</h3>
-            <ol class={styles.list} style={`height: ${props.items_per_page * 51}px`} onPointerLeave={() => handle_pointer_leave()}>
+            <ol class={styles.list} onPointerLeave={() => handle_pointer_leave()}>
                 <For each={paginated_list()[page_number()]}>
                     {(item) => (
                         <li class={styles.item} onPointerEnter={() => handle_pointer_enter(item.name, item.value)}>

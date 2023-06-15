@@ -65,3 +65,9 @@
 .buttons__state {
     margin: 0 8px;
 }
+
+@media (min-width: 600px) {
+    .list {
+        height: 400px;
+    }
+}
