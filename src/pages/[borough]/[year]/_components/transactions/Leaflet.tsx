@@ -38,7 +38,13 @@ function Map(props: MapProps) {
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             })
             .addTo(map);
-        props.l.marker([props.lat, props.long]).addTo(map);
+
+        const defaultIcon = props.l.icon({
+            iconUrl: '/marker-icon-2x.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41]
+        });
+        props.l.marker([props.lat, props.long], { icon: defaultIcon }).addTo(map);
     });
 
     return <div ref={div} style="height: 400px; width: 100%; border-radius: 8px;" />;
